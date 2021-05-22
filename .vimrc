@@ -1,5 +1,5 @@
 set number
-set mouse=a
+set mouse=r
 set numberwidth=1
 set clipboard=unnamed
 syntax enable
@@ -10,6 +10,7 @@ set showmatch
 set sw=2
 set relativenumber
 set laststatus=2
+set ignorecase
 " set noshowmode
 set updatetime=100
 set guifont=Fira\ Code:h12
@@ -26,7 +27,7 @@ Plug 'dracula/vim',{'as':'dracula'}
 " IDE
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator' " Allow move inter panes instances
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -72,6 +73,9 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 " Theme config
 colorscheme dracula
 
+" Theme config Python 2/3
+let g:python_highlight_all = 1
+
 " Theme config JS
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
@@ -101,8 +105,10 @@ let NERDTreeQuitOnOpen=1
 let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 let NERDTreeShowHidden=1
+let g:NERDTreeMapJumpPrevSibling="" " Fix bug show cursor nerdtree
+let g:NERDTreeMapJumpNextSibling="" " Fix bug show cursos nerdtree
 
-" Config shortcuts
+" Config shortcuts General
 let mapleader=" "
 
 nmap <Leader>s <Plug>(easymotion-s2)
@@ -121,6 +127,13 @@ inoremap " ""<Esc>i
 
 nmap <Leader>noh :noh<CR>
 
+" Custom Config Tmux Navigator
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <Leader>h :TmuxNavigateLeft<CR>
+nnoremap <silent> <Leader>j :TmuxNavigateDown<CR>
+nnoremap <silent> <Leader>k :TmuxNavigateUp<CR>
+nnoremap <silent> <Leader>l :TmuxNavigateRight<CR>
+nnoremap <silent> <Leader>\ :TmuxNavigatePrevious<CR> 
 " Python
 let g:python_host_prog  = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
